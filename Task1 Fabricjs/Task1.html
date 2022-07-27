@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas><br>
+
+    <p> <strong> Note: The canvas will inherit the height and width of the selected image as no default width-height was given.</strong></p>
+    <p>Upload File: <input type="file" id="uploader" placeholder="Upload"></p>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+
+        const reader = new FileReader();
+        const img = new Image();
+
+        const uploadImage = (e) => {
+            reader.onload = () => {
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    context.drawImage(img, 0, 0);
+                };
+                img.src = reader.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        };
+        const imageLoader = document.getElementById('uploader');
+        imageLoader.addEventListener('change', uploadImage);
+
+    </script>
+
+</body>
+
+</html>
